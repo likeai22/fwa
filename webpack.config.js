@@ -14,6 +14,29 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract([
+          //'vue-style-loader',
+          'css-loader'
+        ]),
+      },
+      {
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract([
+          //'vue-style-loader',
+          'css-loader',
+          'sass-loader'
+        ])
+      },
+      {
+        test: /\.sass$/,
+        use: ExtractTextPlugin.extract([
+          //'vue-style-loader',
+          'css-loader',
+          'sass-loader?indentedSyntax'
+        ])
+      },
+      {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
@@ -23,7 +46,7 @@ module.exports = {
             'scss': ExtractTextPlugin.extract([
               //'vue-style-loader',
               'css-loader',
-              'sass-loader?indentedSyntax'
+              'sass-loader'
             ]),
             'sass': ExtractTextPlugin.extract([
               //'vue-style-loader',
@@ -50,29 +73,6 @@ module.exports = {
           name: 'resources/images/[name].[ext]?[hash]',
           publicPath: '../',
         }
-      },
-      {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract([
-          //'vue-style-loader',
-          'css-loader'
-        ]),
-      },
-      {
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract([
-          //'vue-style-loader',
-          'css-loader',
-          'sass-loader'
-        ])
-      },
-      {
-        test: /\.sass$/,
-        use: ExtractTextPlugin.extract([
-          //'vue-style-loader',
-          'css-loader',
-          'sass-loader?indentedSyntax'
-        ])
       },
     ]
   },
