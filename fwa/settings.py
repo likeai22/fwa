@@ -46,6 +46,8 @@ INSTALLED_APPS = [
 
     'fwa.apps.welcome.apps.WelcomeConfig',
     'fwa.core.apps.CoreConfig',
+    'fwa.apps.pages.apps.PagesConfig',
+    
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken'
