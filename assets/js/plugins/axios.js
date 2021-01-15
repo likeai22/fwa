@@ -12,7 +12,6 @@ axios.interceptors.request.use(request => {
 
   // request.headers['X-Socket-id'] = Echo.socketId()
   request.baseURL = 'http://127.0.0.1:8000'
-
   return request
 })
 

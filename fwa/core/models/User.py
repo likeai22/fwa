@@ -1,7 +1,7 @@
-from django.db import migrations, models
+import uuid
+from django.db import models
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser
-import uuid
 from ..managers import UserManager
 
 
@@ -10,14 +10,15 @@ class User(AbstractBaseUser, PermissionsMixin):
     Модель пользователя
     """
     uid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    login = models.CharField(max_length=50, unique=True)
+    user_login = models.CharField(max_length=50, unique=True)
+    email = models.EmailField(default=None, null=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     created = models.DateTimeField(auto_now_add=True)
 
-    object = UserManager()
+    objects = UserManager()
 
-    USERNAME_FIELD = 'login'
+    USERNAME_FIELD = 'user_login'
     REQUIRED_FIELDS = []
 
     class Meta:

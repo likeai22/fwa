@@ -5,10 +5,10 @@
         <form @submit.prevent="login" @keydown="form.onKeydown($event)">
           <!-- Email -->
           <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">{{ $t('email') }}</label>
+            <label class="col-md-3 col-form-label text-md-right">{{ $t('user_login') }}</label>
             <div class="col-md-7">
-              <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-control" type="email" name="email">
-              <has-error :form="form" field="email" />
+              <input v-model="form.username" :class="{ 'is-invalid': form.errors.has('user_login') }" class="form-control" type="text" name="user_login">
+              <has-error :form="form" field="user_login" />
             </div>
           </div>
 
@@ -53,6 +53,7 @@
 </template>
 
 <script>
+
 import Form from 'vform'
 // import LoginWithGithub from '~/components/LoginWithGithub'
 
@@ -64,12 +65,12 @@ export default {
   },
 
   metaInfo () {
-    return { title: this.$t('login') }
+    return { title: this.$t('user_login') }
   },
 
   data: () => ({
     form: new Form({
-      email: '',
+      user_login: '',
       password: ''
     }),
     remember: false

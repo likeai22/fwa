@@ -25,7 +25,7 @@
                href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
             >
               <img :src="user.photo_url" class="rounded-circle profile-photo mr-1">
-              {{ user.name }}
+              {{ user.user_login }}
             </a>
             <div class="dropdown-menu">
               <router-link :to="{ name: 'settings.profile' }" class="dropdown-item pl-3">
