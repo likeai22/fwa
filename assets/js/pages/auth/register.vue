@@ -10,10 +10,32 @@
         <form @submit.prevent="register" @keydown="form.onKeydown($event)">
           <!-- Name -->
           <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">{{ $t('name') }}</label>
+            <label class="col-md-3 col-form-label text-md-right">{{ $t('user_login') }}</label>
             <div class="col-md-7">
-              <input v-model="form.name" :class="{ 'is-invalid': form.errors.has('name') }" class="form-control" type="text" name="name">
-              <has-error :form="form" field="name" />
+              <input v-model="form.user_login" :class="{ 'is-invalid': form.errors.has('user_login') }"
+                     class="form-control"
+                     type="text" name="user_login">
+              <has-error :form="form" field="user_login"/>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label text-md-right">{{ $t('first_name') }}</label>
+            <div class="col-md-7">
+              <input v-model="form.first_name" :class="{ 'is-invalid': form.errors.has('first_name') }"
+                     class="form-control"
+                     type="text" name="first_name">
+              <has-error :form="form" field="first_name"/>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label text-md-right">{{ $t('last_name') }}</label>
+            <div class="col-md-7">
+              <input v-model="form.last_name" :class="{ 'is-invalid': form.errors.has('last_name') }"
+                     class="form-control"
+                     type="text" name="last_name">
+              <has-error :form="form" field="last_name"/>
             </div>
           </div>
 
@@ -21,8 +43,9 @@
           <div class="form-group row">
             <label class="col-md-3 col-form-label text-md-right">{{ $t('email') }}</label>
             <div class="col-md-7">
-              <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-control" type="email" name="email">
-              <has-error :form="form" field="email" />
+              <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-control"
+                     type="email" name="email">
+              <has-error :form="form" field="email"/>
             </div>
           </div>
 
@@ -30,8 +53,9 @@
           <div class="form-group row">
             <label class="col-md-3 col-form-label text-md-right">{{ $t('password') }}</label>
             <div class="col-md-7">
-              <input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }" class="form-control" type="password" name="password">
-              <has-error :form="form" field="password" />
+              <input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }" class="form-control"
+                     type="password" name="password">
+              <has-error :form="form" field="password"/>
             </div>
           </div>
 
@@ -39,8 +63,10 @@
           <div class="form-group row">
             <label class="col-md-3 col-form-label text-md-right">{{ $t('confirm_password') }}</label>
             <div class="col-md-7">
-              <input v-model="form.password_confirmation" :class="{ 'is-invalid': form.errors.has('password_confirmation') }" class="form-control" type="password" name="password_confirmation">
-              <has-error :form="form" field="password_confirmation" />
+              <input v-model="form.password_confirmation"
+                     :class="{ 'is-invalid': form.errors.has('password_confirmation') }" class="form-control"
+                     type="password" name="password_confirmation">
+              <has-error :form="form" field="password_confirmation"/>
             </div>
           </div>
 
@@ -52,7 +78,7 @@
               </v-button>
 
               <!-- GitHub Register Button -->
-<!--              <login-with-github />-->
+              <!--              <login-with-github />-->
             </div>
           </div>
         </form>
@@ -72,13 +98,15 @@ export default {
     // LoginWithGithub
   },
 
-  metaInfo () {
-    return { title: this.$t('register') }
+  metaInfo() {
+    return {title: this.$t('register')}
   },
 
   data: () => ({
     form: new Form({
-      name: '',
+      user_login: '',
+      first_name: '',
+      last_name: '',
       email: '',
       password: '',
       password_confirmation: ''
@@ -87,25 +115,25 @@ export default {
   }),
 
   methods: {
-    async register () {
+    async register() {
       // Register the user.
-      const { data } = await this.form.post('/api/register')
+      const {data} = await this.form.post('/api/register')
 
       // Must verify email fist.
       if (data.status) {
         this.mustVerifyEmail = true
       } else {
         // Log in the user.
-        const { data: { token } } = await this.form.post('/api/login')
+        const {data: {token}} = await this.form.post('/api/login')
 
         // Save the token.
-        this.$store.dispatch('auth/saveToken', { token })
+        this.$store.dispatch('auth/saveToken', {token})
 
         // Update the user.
-        await this.$store.dispatch('auth/updateUser', { user: data })
+        await this.$store.dispatch('auth/updateUser', {user: data})
 
         // Redirect home.
-        this.$router.push({ name: 'home' })
+        this.$router.push({name: 'home'})
       }
     }
   }
