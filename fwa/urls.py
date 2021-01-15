@@ -19,5 +19,7 @@ from fwa.apps.welcome.views import index
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('api/', include('fwa.core.urls')),
+    path('api/', include('fwa.apps.pages.urls')),
+
     path('', index)
 ]
