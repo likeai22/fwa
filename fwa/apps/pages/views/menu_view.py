@@ -13,7 +13,12 @@ class MenuView(ViewSet):
         return Response(MenuSerializer(queryset, many=True).data)
 
     def retrieve(self, request, pk=None):
-        return Response(MenuSerializer(Menu.objects.get(uid=pk)).data)
+        return Response(MenuSerializer(Menu.objects.get(url=pk)).data)
+
+    @action(methods=['get'], detail=False)
+    def start_page(self, request):
+        queryset = Menu.objects.all()[0]
+        return Response(MenuSerializer(queryset).data)
 
     @action(methods=['get'], detail=False)
     def list_pk(self, request):
