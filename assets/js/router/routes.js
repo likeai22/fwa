@@ -12,6 +12,7 @@ const NotFound = () => import('~/pages/errors/404').then(m => m.default || m)
 
 const Welcome = () => import('~/pages/welcome').then(m => m.default || m)
 const Home = () => import('~/pages/home').then(m => m.default || m)
+// const Page = () => import('~/pages/page').then(m => m.default || m)
 const Settings = () => import('~/pages/settings/index').then(m => m.default || m)
 
 
@@ -20,6 +21,13 @@ export default [
     path: '/',
     name: 'welcome',
     component: Welcome
+  },
+
+  {
+    path: '/page/:url',
+    name: 'page',
+    component: Welcome,
+    props: true
   },
 
   {

@@ -1,42 +1,64 @@
 <template>
-  <div>
-    <div class="top-right links">
-      <template v-if="authenticated">
-        <router-link :to="{ name: 'home' }">
-          {{ $t('home') }}
-        </router-link>
-      </template>
-      <template v-else>
-        <router-link :to="{ name: 'login' }">
-          {{ $t('login') }}
-        </router-link>
-        <router-link :to="{ name: 'register' }">
-          {{ $t('register') }}
-        </router-link>
-      </template>
-    </div>
-
-    <div class="text-center">
-      <div class="title mb-4">
-        {{ title }}
-      </div>
-    </div>
+  <div class="container-fluid mt-3">
+    <div><h2>{{ menu.title }}</h2></div>
+    <div v-html="menu.body"></div>
   </div>
 </template>
 
 <script>
 import {mapGetters} from 'vuex'
+import axios from 'axios'
+// import navbarMenu from '~/pages/welcome/navbarMenu';
 
 export default {
-  layout: 'basic',
+  // components: {navbarMenu},
+  layout: 'page',
 
-  metaInfo() {
-    return {title: this.$t('home')}
-  },
+  // data: () => ({
+  //   title: window.config.appName
+  // }),
 
   data: () => ({
-    title: window.config.appName
+    menu: {
+      title: ''
+    },
   }),
+
+  props: {
+    url: {
+      type: String,
+      default: 'fp'
+    }
+  },
+
+  watch: {
+    'url': 'updatePage',
+  },
+
+  metaInfo() {
+    return {title: this.menu.title}
+  },
+
+  methods: {
+    async updatePage() {
+      const {data} = await axios.get(`/api/menu/${this.url}/`)
+      this.menu = data;
+    }
+  },
+
+  mounted() {
+    this.updatePage()
+  },
+
+  // metaInfo() {
+  //   return {title: this.$t('home')}
+  // },
+
+  // async created() {
+  //   const {data} = await axios.get(`/api/menu/${this.url}/`)
+  //   this.menu = data;
+  // },
+
 
   computed: mapGetters({
     authenticated: 'auth/check'
